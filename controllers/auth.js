@@ -6,8 +6,8 @@ const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
 const createUser = async (req, res = response) => {
+    
     const { correoElectronico, contrasenia } = req.body;
-    console.log(req.body);
 
     try {
 
@@ -48,7 +48,7 @@ const createUser = async (req, res = response) => {
 };
 
 const loginUser = async (req, res = response) => {
-    console.log('----------LOGIN-----------')
+
     const { correoElectronico, contrasenia } = req.body;
 
     try {
@@ -63,7 +63,6 @@ const loginUser = async (req, res = response) => {
 
         //Confirmar password
         const validPassword = bcrypt.compareSync(contrasenia, usuario.contrasenia);
-        console.log(validPassword)
 
         if (!validPassword) {
             return res.status(400).json({
@@ -91,8 +90,6 @@ const loginUser = async (req, res = response) => {
 }
 
 const revalidToken = async (req, res = response) => {
-
-    console.log('----------RENEW-----------');
 
     const {uid, nombres} = req;
 

@@ -2,9 +2,7 @@ const jwt = require('jsonwebtoken');
 
 
 const generarJWT = (uid, name) => {
-
-    console.log(uid, name)
-
+    
     return new Promise((resolve, reject) => {
 
         const paylod = { uid, name };
