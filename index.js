@@ -19,13 +19,19 @@ app.use(express.static('public'));
 //Lectura y parseo del body
 app.use(express.json());
 
-//Rutas
+//Rutas de los modulos
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
-
-//Auth,crear/ login / renew
+app.use('/api/perfil', require('./routes/perfil'));
+app.use('/api/atraccion', require('./routes/atraccion'));
+app.use('/api/categoria', require('./routes/categoria'));
+app.use('/api/pais', require('./routes/pais'));
+app.use('/api/estado', require('./routes/estado'));
 
 //Peticiones
 app.listen(process.env.PORT, () => { 
-    console.log(`Servidor corriendo en el pruert ${process.env.PORT}`);
+    console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
 });
+
+//Deploy Heroku
+// https://app-backend-travel.herokuapp.com/
