@@ -12,11 +12,7 @@ const contactoSchema = Schema({
     correoContacto: {
         type: String,
         required: false,
-    },
-    perfil: {
-        type: Schema.Types.ObjectId,
-        ref: 'perfiles'
-    },
+    },    
     fechaAlta: {
         type: Date,
         default: Date.now 
@@ -28,6 +24,10 @@ const contactoSchema = Schema({
     esActivo: {
         type: Number,
         required: true
+    },
+    perfil: {
+        type: Schema.Types.ObjectId,
+        ref: 'perfiles'
     }
 });
 

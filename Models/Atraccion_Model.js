@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const atraccionSchema = Schema({
     nombreAtraccion: {
@@ -13,30 +13,34 @@ const atraccionSchema = Schema({
     imagenPortada: {
         type: String,
         required: false,
-    },    
+    },
+    imagenes: {
+        type: Array,
+        required: false,
+    },
     horarioApertura: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     },
     horarioCierre: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     },
     fechaAlta: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     },
     fechaModificacion: {
         type: Date,
-        default: Date.now 
+        default: Date.now
     },
     esActivo: {
         type: Number,
         required: true
     },
-    perfil: {
+    usuario: {
         type: Schema.Types.ObjectId,
-        ref: 'perfiles'
+        ref: 'usuarios'
     },
     categoria: {
         type: Schema.Types.ObjectId,
@@ -45,8 +49,8 @@ const atraccionSchema = Schema({
 });
 
 //Modificar el _id a id del JSON
-atraccionSchema.method('toJSON', function(){
-    const { __v, _id, ...object} = this.toObject();
+atraccionSchema.method('toJSON', function () {
+    const { __v, _id, ...object } = this.toObject();
     object.id = _id;
     return object;
 });

@@ -6,7 +6,7 @@ const fotografoSchema = Schema({
         required: true,
         unique: true
     },
-    tipoFotogrago: {
+    tipoFotografo: {
         type: String,
         required: false
     },

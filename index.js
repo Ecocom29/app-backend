@@ -20,13 +20,17 @@ app.use(express.static('public'));
 app.use(express.json());
 
 //Rutas de los modulos
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/events', require('./routes/events'));
+app.use('/api/usuario', require('./routes/usuario'));
+//app.use('/api/usuario', require('./routes/_usuario'));
+app.use('/api/evento', require('./routes/evento'));
 app.use('/api/perfil', require('./routes/perfil'));
 app.use('/api/atraccion', require('./routes/atraccion'));
 app.use('/api/categoria', require('./routes/categoria'));
 app.use('/api/pais', require('./routes/pais'));
 app.use('/api/estado', require('./routes/estado'));
+app.use('/api/noticia', require('./routes/noticia'));
+app.use('/api/evaluacion', require('./routes/evaluacion'));
+app.use('/api/tipoUsuario', require('./routes/tipoUsuario'));
 
 //Peticiones
 app.listen(process.env.PORT, () => { 

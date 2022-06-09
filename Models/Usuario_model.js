@@ -26,15 +26,20 @@ const usuarioSchema = Schema({
         type: String,
         required: false
     },
+    imagenPortada:{
+        type: String,
+        required: false
+    },
     imagenPerfil: {
         type: String,
         required: false
     },
-    tipoUsuario: {
+    nombrePerfil: {
         type: String,
-        required: false
+        required: true,
+        unique: true
     },
-    estado: {
+    ubicacionMaps:{
         type: String,
         required: false
     },
@@ -45,7 +50,11 @@ const usuarioSchema = Schema({
     esActivo: {
         type: Number,
         required: false
-    }
+    },
+    tipoUsuario: {
+        type: Schema.Types.ObjectId,
+        ref: 'tipoUsuario'
+    },
 });
 
 //Modificar el _id a id del JSON

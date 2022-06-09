@@ -7,20 +7,19 @@ const { Router } = require('express');
 const router = Router();
 const { check } = require('express-validator');
 
-
-const { createUser, loginUser, revalidToken } = require('../controllers/auth');
+const { creaUsuario, loginUsuario, validaToken, actualizaUsuario, eliminaUsuario } = require('../controllers/usuarioController');
 const { validarCampos } = require('../middlewares/validar_campos');
 const { validarJWT } = require('../middlewares/validar_jwt');
 
 router.post(
-    '/CreateUser',
+    '/',
     [
         check('nombres', 'El nombre obligatorio').not().isEmpty(),
-       // check('correoElectronico', 'El email es obligatorio').not().isEmail(),
+        check('correoElectronico', 'El email es obligatorio').not().isEmpty(),
         check('contrasenia', 'El password debe ser mas de 5 caracteres').not().isEmpty(),
         validarCampos
     ]
-    , createUser
+    , creaUsuario
 );
 
 router.post(
@@ -30,14 +29,19 @@ router.post(
         check('contrasenia', 'El password debe ser mas de 5 caracteres').not().isEmpty(),
         validarCampos
     ],
-    loginUser
+    loginUsuario
 );
+
+/* Ruta para actualizar el usuario */
+router.put('/:id', actualizaUsuario);
+
+/* Ruta para eliminar el usuario */
+router.delete('/:id', eliminaUsuario);
 
 router.get(
     '/renew',
     validarJWT, 
-    revalidToken
-    );
-
+    validaToken
+);
 
 module.exports = router;

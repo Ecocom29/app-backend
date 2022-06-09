@@ -2,16 +2,16 @@ const { Schema, model } = require('mongoose');
 
 
 const estadoSchema = Schema({
-    nombreEstado: { 
-        type:String,
-        required:true,
-        unique:true
-     },
-     descripcionEstado: { 
-        type:String,
-        required:false
-     },
-     fechaAlta: {
+    nombreEstado: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    descripcionEstado: {
+        type: String,
+        required: false
+    },
+    fechaAlta: {
         type: Date,
         default: Date.now
     },
@@ -30,8 +30,8 @@ const estadoSchema = Schema({
 });
 
 //Modificar el _id a id del JSON
-estadoSchema.method('toJSON', function(){
-    const { __v, _id, ...object} = this.toObject();
+estadoSchema.method('toJSON', function () {
+    const { __v, _id, ...object } = this.toObject();
     object.id = _id;
     return object;
 });

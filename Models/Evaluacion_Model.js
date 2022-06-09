@@ -1,15 +1,6 @@
 const { Schema, model } = require('mongoose');
 
 const evaluacionShema = Schema({
-    nombreUsuario: {
-        type: String,
-        required: true
-    },
-    correoElectronico: {
-        type: String,
-        required: true,
-        unique: true
-    },
     comentarios: {
         type: String,
         required: false
@@ -41,6 +32,10 @@ const evaluacionShema = Schema({
     atraccion: {
         type: Schema.Types.ObjectId,
         ref: 'atracciones'
+    },
+    nombreUsuario: {
+        type: Schema.Types.ObjectId,
+        ref: 'usuarios'
     }
 });
 
@@ -51,4 +46,4 @@ evaluacionShema.method('toJSON', function(){
     return object;
 });
 
-module.exports = model('evaluacion', evaluacionShema);
+module.exports = model('evaluaciones', evaluacionShema);

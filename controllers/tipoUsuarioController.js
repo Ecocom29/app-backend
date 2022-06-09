@@ -1,12 +1,12 @@
 const { response } = require('express');
-const Atraccion = require('../Models/Atraccion_Model');
+const TipoUsuario = require('../Models/TipoUsuario_Model');
 
+/* Funcion para obtener tipo usuario */
+const ObtenerTipoUsuario = async (req, res = response) => {
 
-const obtenerAtracciones = async (req, res = response) => {
+    const tipoUsuario = await TipoUsuario.find();
 
-    const atracciones = await Atraccion.find();
-
-    if (!atracciones) {
+    if (!tipoUsuario) {
         return res.json({
             ok: false,
             msg: "No existen registros."
@@ -15,32 +15,32 @@ const obtenerAtracciones = async (req, res = response) => {
 
     res.json({
         ok: true,
-        atraccion: atracciones
+        tipoUsuario: tipoUsuario
     });
 }
 
-/* Funcion para crear atraccion */
-const creaAtraccion = async (req, res = response) => {
+/* Funcion para crear tipo usuario */
+const crearTipoUsuario = async (req, res = response) => {
 
-    const atraccion = new Atraccion(req.body);
+    const tipoUsuario = new TipoUsuario(req.body);
 
     try {
 
-        const objAtraccion = await Atraccion.findOne({"nombreAtraccion": atraccion.nombreAtraccion});
+        const objtipoUsuario = await TipoUsuario.findOne({"nombreTipo": tipoUsuario.nombreTipo});
         
-        if(objAtraccion){
+        if(objtipoUsuario){
             return res.status(404).json({
                 ok: false,
-                msg: "Ya existe una atraccion con el mismo nombre, favor de verificar."
+                msg: "Ya existe un tipo de usuario con el mismo nombre, favor de verificar."
             });
         }
         
-        const atraccionGuardado = await atraccion.save();
+        const tipoUsuarioGuardado = await tipoUsuario.save();
 
         res.json({
             ok: true,
-            msg: 'Se guardo correctamente la atraccion.',
-            atraccion: atraccionGuardado
+            msg: 'Se guardo correctamente el tipo de usuario.',
+            tipoUsuario: tipoUsuarioGuardado
         });
     } catch (error) {
         console.log(error);
@@ -51,16 +51,17 @@ const creaAtraccion = async (req, res = response) => {
     }
 }
 
-/* Funcion para actualizar atraccion */
-const actualizaAtraccion = async (req, res = response) => {
+/* Funcion para actualizar tipo usuario */
+const actualizarTipoUsuario = async (req, res = response) => {
 
-    const atraccionID = req.params.id;
+    const tipoUsuarioID = req.params.id;
     const uid = req.uid;
 
     try {
-        const atraccion = await Atraccion.findById(atraccionID);
 
-        if (!atraccion) {
+        const tipoUsuario = await TipoUsuario.findById(tipoUsuarioID);
+
+        if (!tipoUsuario) {
             res.status(404).json({
                 ok: false,
                 msg: "El perfil no existe o no esta disponible."
@@ -75,17 +76,17 @@ const actualizaAtraccion = async (req, res = response) => {
             });
         } */
 
-        const nuevaAtraccion = {
+        const nuevoTipoUsuario = {
             ...req.body,
-            atraccionuid: uid
+            tipoUsuarioID: uid
         }
 
-        const atraccionActualizado = await Atraccion.findByIdAndUpdate(atraccionID, nuevaAtraccion, { new: true });
+        const tipoUsuarioActualizado = await TipoUsuario.findByIdAndUpdate(tipoUsuarioID, nuevoTipoUsuario, { new: true });
 
         res.status(500).json({
             ok: true,
             msg: "Atraccion actualizado correctamente",
-            atraccion: atraccionActualizado
+            tipoUsuario: tipoUsuarioActualizado
         });
 
     } catch (error) {
@@ -97,20 +98,20 @@ const actualizaAtraccion = async (req, res = response) => {
 
 }
 
-/* Funcion para eliminar el atraccion */
-const eliminaAtraccion = async (req, res = response) => {
+/* Funcion para eliminar el tipo usuario */
+const eliminarTipoUsuario = async (req, res = response) => {
 
-    const atraccionID = req.params.id;
+    const tipoUsuarioID = req.params.id;
     const uid = req.uid;
 
     try {
 
-        const atraccion = await Atraccion.findById(atraccionID);
+        const tipoUsuario = await TipoUsuario.findById(tipoUsuarioID);
 
-        if (!atraccion) {
+        if (!tipoUsuario) {
             res.status(404).json({
                 ok: false,
-                msg: "La atraccion no se encuentra o no esta disponible."
+                msg: "El tipo de usuario no se encuentra o no esta disponible."
             })
         }
 
@@ -121,7 +122,7 @@ const eliminaAtraccion = async (req, res = response) => {
             });
         } */
 
-        await Atraccion.findByIdAndDelete(atraccionID);
+        await TipoUsuario.findByIdAndDelete(tipoUsuarioID);
 
         res.json({
             ok: true
@@ -136,8 +137,8 @@ const eliminaAtraccion = async (req, res = response) => {
 }
 
 module.exports = {
-    obtenerAtracciones,
-    creaAtraccion,
-    actualizaAtraccion,
-    eliminaAtraccion
+    ObtenerTipoUsuario,
+    crearTipoUsuario,
+    actualizarTipoUsuario,
+    eliminarTipoUsuario
 }
