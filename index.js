@@ -33,8 +33,9 @@ app.use('/api/evaluacion', require('./routes/evaluacion'));
 app.use('/api/tipoUsuario', require('./routes/tipoUsuario'));
 
 //Peticiones
-app.listen(process.env.PORT, () => { 
-    console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
+const PORT_LOCAL = 4000;
+app.listen(process.env.PORT || PORT_LOCAL, () => { 
+    console.log(`Servidor corriendo en el puerto ${process.env.PORT || PORT_LOCAL}`);
 });
 
 //Deploy Heroku
