@@ -14,6 +14,10 @@ const atraccionSchema = Schema({
         type: String,
         required: false,
     },
+    ubicacionMaps: {
+        type: String,
+        required: false,
+    },
     imagenes: {
         type: Array,
         required: false,
