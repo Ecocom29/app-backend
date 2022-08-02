@@ -7,7 +7,7 @@ const { Router } = require('express');
 const router = Router();
 const { check } = require('express-validator');
 
-const { creaUsuario, loginUsuario, validaToken, actualizaUsuario, eliminaUsuario } = require('../controllers/usuarioController');
+const { creaUsuario, loginUsuario, validaToken, actualizaUsuario, eliminaUsuario, ObtenerUsuarioUID } = require('../controllers/usuarioController');
 const { validarCampos } = require('../middlewares/validar_campos');
 const { validarJWT } = require('../middlewares/validar_jwt');
 
@@ -21,6 +21,9 @@ router.post(
     ]
     , creaUsuario
 );
+
+/* Ruta para obtener usuario con UID */
+router.get('/:id', ObtenerUsuarioUID);
 
 router.post(
     '/Login',

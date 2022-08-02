@@ -47,6 +47,35 @@ const creaUsuario = async (req, res = response) => {
     }
 };
 
+
+const ObtenerUsuarioUID = async (req, res = response) =>{
+
+    const usuarioID = req.params.id;
+
+    try{
+      
+        const usuario = await Usuario.findOne({id: usuarioID});
+
+        if(!usuario){
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario no existe.'
+            })
+        }
+
+        res.json({
+            ok: true,
+            data_user: usuario
+        })
+
+    }catch(error){
+        res.status(500).json({
+            ok: false,
+            msg: 'Problemas durante la obtencion del usuario.'
+        });
+    }
+}
+
 const loginUsuario = async (req, res = response) => {
 
     const { correoElectronico, contrasenia } = req.body;
@@ -192,6 +221,7 @@ const validaToken = async (req, res = response) => {
 
 module.exports = {
     creaUsuario,
+    ObtenerUsuarioUID,
     loginUsuario,
     actualizaUsuario,
     eliminaUsuario,
