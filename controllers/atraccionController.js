@@ -19,6 +19,37 @@ const obtenerAtracciones = async (req, res = response) => {
     });
 }
 
+/* Obtener atracciones por el ID de la cateogiria. */
+const ObtenerAtraccionesPorCategoria = async (req, res = response) => {
+    const catID = req.params.id;
+    const uid = req.uid;
+
+    try {
+
+        const atraccion = await Atraccion.find({categoria: catID});
+
+        console.log(atraccion);
+
+        if (atraccion) {
+            return res.status(404).json({
+                ok: false,
+                msg: "No existem atracciones con esta categoria."
+            });
+        }
+
+        res.status(200).json({
+            ok: true,
+            atraccion: atraccion
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: "Ocurrio un error al consultar la informacion."
+        });
+    }
+}
+
 /* Funcion para crear atraccion */
 const creaAtraccion = async (req, res = response) => {
 
@@ -26,15 +57,15 @@ const creaAtraccion = async (req, res = response) => {
 
     try {
 
-        const objAtraccion = await Atraccion.findOne({"nombreAtraccion": atraccion.nombreAtraccion});
-        
-        if(objAtraccion){
+        const objAtraccion = await Atraccion.findOne({ "nombreAtraccion": atraccion.nombreAtraccion });
+
+        if (objAtraccion) {
             return res.status(404).json({
                 ok: false,
                 msg: "Ya existe una atraccion con el mismo nombre, favor de verificar."
             });
         }
-        
+
         const atraccionGuardado = await atraccion.save();
 
         res.json({
@@ -68,12 +99,12 @@ const actualizaAtraccion = async (req, res = response) => {
         }
 
         // Privilegios para editar registro
-       /*  if (atraccion.id.toString() !== uid) {
-            return res.status(401).json({
-                ok: false,
-                msg: "No tiene privilegios para editar."
-            });
-        } */
+        /*  if (atraccion.id.toString() !== uid) {
+             return res.status(401).json({
+                 ok: false,
+                 msg: "No tiene privilegios para editar."
+             });
+         } */
 
         const nuevaAtraccion = {
             ...req.body,
@@ -139,5 +170,6 @@ module.exports = {
     obtenerAtracciones,
     creaAtraccion,
     actualizaAtraccion,
-    eliminaAtraccion
+    eliminaAtraccion,
+    ObtenerAtraccionesPorCategoria
 }

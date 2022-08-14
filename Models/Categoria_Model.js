@@ -10,6 +10,9 @@ const categoriaSchema = Schema({
         type: String,
         required: false,
     },
+    iconoCategoria:{
+        type: String,
+    },
     fechaAlta: {
         type: Date,
         default: Date.now
