@@ -30,7 +30,7 @@ const ObtenerAtraccionesPorCategoria = async (req, res = response) => {
 
         console.log(atraccion);
 
-        if (atraccion) {
+        if (!atraccion) {
             return res.status(404).json({
                 ok: false,
                 msg: "No existem atracciones con esta categoria."
