@@ -13,6 +13,9 @@ const categoriaSchema = Schema({
     iconoCategoria:{
         type: String,
     },
+    imagenPortada:{
+        type: String,
+    },
     fechaAlta: {
         type: Date,
         default: Date.now

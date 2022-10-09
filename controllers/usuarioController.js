@@ -106,7 +106,7 @@ const loginUsuario = async (req, res = response) => {
         res.json({
             ok: true,
             uid: usuario.id,
-            nombre: usuario.nombres,
+            dataUser: usuario,
             tokn: token
         })
     } catch (error) {
